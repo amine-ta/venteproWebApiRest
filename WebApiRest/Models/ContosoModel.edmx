@@ -1,0 +1,840 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="venteproModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CATEGORIE">
+          <Key>
+            <PropertyRef Name="IDCATEGORIE" />
+          </Key>
+          <Property Name="IDCATEGORIE" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="NOMCATEGORIE" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="IDCLIENT" />
+          </Key>
+          <Property Name="IDCLIENT" Type="numeric" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="NOMCLIENT" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="PRENOMCLIENT" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="COURIEL" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="MOTDEPASSE" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="TELEPHONECLIENT" Type="varchar" MaxLength="15" />
+          <Property Name="NOCIVIQUE" Type="varchar" MaxLength="10" />
+          <Property Name="NOAPP" Type="varchar" MaxLength="3" />
+          <Property Name="NOMRUE" Type="varchar" MaxLength="30" />
+          <Property Name="VILLE" Type="varchar" MaxLength="20" />
+          <Property Name="PROVINCE" Type="varchar" MaxLength="20" />
+          <Property Name="PAYS" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="COMMANDE">
+          <Key>
+            <PropertyRef Name="NOCOMMANDE" />
+          </Key>
+          <Property Name="NOCOMMANDE" Type="numeric" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="DATECOMMANDE" Type="datetime2" Precision="0" />
+          <Property Name="IDCLIENT" Type="numeric" Precision="20" Scale="0" />
+        </EntityType>
+        <EntityType Name="FACTURE">
+          <Key>
+            <PropertyRef Name="IDFACTURE" />
+            <PropertyRef Name="NOCOMMANDE" />
+          </Key>
+          <Property Name="IDFACTURE" Type="numeric" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="NOCOMMANDE" Type="numeric" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="PRIXHT" Type="numeric" Precision="7" Scale="2" />
+          <Property Name="PRIXTTC" Type="numeric" Precision="7" Scale="2" />
+          <Property Name="DATEFACTURATION" Type="datetime2" Precision="0" />
+        </EntityType>
+        <EntityType Name="LIGNE_COMMANDE">
+          <Key>
+            <PropertyRef Name="NOCOMMANDE" />
+            <PropertyRef Name="IDPRODUIT" />
+          </Key>
+          <Property Name="NOCOMMANDE" Type="numeric" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="IDPRODUIT" Type="numeric" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="QUANTITE" Type="numeric" Precision="5" Scale="0" />
+        </EntityType>
+        <EntityType Name="MARQUE">
+          <Key>
+            <PropertyRef Name="IDMARQUE" />
+          </Key>
+          <Property Name="IDMARQUE" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NOM" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PRODUIT">
+          <Key>
+            <PropertyRef Name="IDPRODUIT" />
+          </Key>
+          <Property Name="IDPRODUIT" Type="numeric" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="IDMARQUE" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="NOMPRODUIT" Type="varchar" MaxLength="50" />
+          <Property Name="DESCRIPTION_FR" Type="varchar" MaxLength="500" />
+          <Property Name="PRIX" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="FORMATPRO" Type="varchar" MaxLength="10" />
+          <Property Name="QUANTITEENSTOCK" Type="numeric" Precision="6" Scale="0" />
+          <Property Name="IMAGE" Type="varchar" MaxLength="200" />
+          <Property Name="IDCATEGORIE" Type="numeric" Precision="3" Scale="0" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="db_error_list">
+          <Key>
+            <PropertyRef Name="error_code" />
+          </Key>
+          <Property Name="error_full_name" Type="nvarchar" MaxLength="400" />
+          <Property Name="error_code" Type="numeric" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="error_message" Type="nvarchar" MaxLength="3000" />
+        </EntityType>
+        <EntityType Name="db_LOB_output">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="ordinal" />
+          </Key>
+          <Property Name="spid" Type="int" Nullable="false" />
+          <Property Name="ordinal" Type="int" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6005: Le type de données 'sql_variant' n'est actuellement pas pris en charge pour la version Entity Framework cible ; la colonne 'v_value' de la table 'ventepro.ssma_oracle.db_storage' a été exclue.-->
+        <EntityType Name="db_storage">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="login_time" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="spid" Type="smallint" Nullable="false" />
+          <Property Name="login_time" Type="datetime" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="323" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6005: Le type de données 'sql_variant' n'est actuellement pas pris en charge pour la version Entity Framework cible ; la colonne 'v_value' de la table 'ventepro.ssma_oracle.t_dbms_sql_bind_variable' a été exclue.-->
+        <EntityType Name="t_dbms_sql_bind_variable">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="_name" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="_type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_cursor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="spid" Type="int" Nullable="false" />
+          <Property Name="login_time" Type="datetime" Nullable="false" />
+          <Property Name="statement" Type="nvarchar(max)" />
+          <Property Name="current_row" Type="int" />
+          <Property Name="last_row" Type="int" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_define_column">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="_type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6005: Le type de données 'sql_variant' n'est actuellement pas pris en charge pour la version Entity Framework cible ; la colonne 'v_value' de la table 'ventepro.ssma_oracle.t_dbms_sql_recordset' a été exclue.-->
+        <EntityType Name="t_dbms_sql_recordset">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="_key" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="int" Nullable="false" />
+          <Property Name="_key" Type="int" Nullable="false" />
+          <Property Name="position" Type="int" Nullable="false" />
+          <Property Name="c_value" Type="varchar(max)" />
+          <Property Name="nc_value" Type="nvarchar(max)" />
+          <Property Name="b_value" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FACTURE_NOCOMMANDE_FK">
+          <End Role="COMMANDE" Type="Self.COMMANDE" Multiplicity="1" />
+          <End Role="FACTURE" Type="Self.FACTURE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMANDE">
+              <PropertyRef Name="NOCOMMANDE" />
+            </Principal>
+            <Dependent Role="FACTURE">
+              <PropertyRef Name="NOCOMMANDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="COMMANDE" Type="Self.COMMANDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="COMMANDE">
+              <PropertyRef Name="IDCLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDCATEGORIE">
+          <End Role="CATEGORIE" Type="Self.CATEGORIE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIE">
+              <PropertyRef Name="IDCATEGORIE" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="IDCATEGORIE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDMARQUE">
+          <End Role="MARQUE" Type="Self.MARQUE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARQUE">
+              <PropertyRef Name="IDMARQUE" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="IDMARQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDPRODUIT">
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="1" />
+          <End Role="LIGNE_COMMANDE" Type="Self.LIGNE_COMMANDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUIT">
+              <PropertyRef Name="IDPRODUIT" />
+            </Principal>
+            <Dependent Role="LIGNE_COMMANDE">
+              <PropertyRef Name="IDPRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_bind_variable" Type="Self.t_dbms_sql_bind_variable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_bind_variable">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_define_column" Type="Self.t_dbms_sql_define_column" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_define_column">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_recordset" Type="Self.t_dbms_sql_recordset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_recordset">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="venteproModelStoreContainer">
+          <EntitySet Name="CATEGORIE" EntityType="Self.CATEGORIE" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="COMMANDE" EntityType="Self.COMMANDE" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="FACTURE" EntityType="Self.FACTURE" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="LIGNE_COMMANDE" EntityType="Self.LIGNE_COMMANDE" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="MARQUE" EntityType="Self.MARQUE" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="PRODUIT" EntityType="Self.PRODUIT" Schema="ARBRE" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_error_list" EntityType="Self.db_error_list" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="db_LOB_output" EntityType="Self.db_LOB_output" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="db_storage" EntityType="Self.db_storage" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_bind_variable" EntityType="Self.t_dbms_sql_bind_variable" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_cursor" EntityType="Self.t_dbms_sql_cursor" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_define_column" EntityType="Self.t_dbms_sql_define_column" Schema="ssma_oracle" store:Type="Tables" />
+          <EntitySet Name="t_dbms_sql_recordset" EntityType="Self.t_dbms_sql_recordset" Schema="ssma_oracle" store:Type="Tables" />
+          <AssociationSet Name="FACTURE_NOCOMMANDE_FK" Association="Self.FACTURE_NOCOMMANDE_FK">
+            <End Role="COMMANDE" EntitySet="COMMANDE" />
+            <End Role="FACTURE" EntitySet="FACTURE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE" Association="Self.FK_COMMANDE">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="COMMANDE" EntitySet="COMMANDE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDCATEGORIE" Association="Self.FK_IDCATEGORIE">
+            <End Role="CATEGORIE" EntitySet="CATEGORIE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDMARQUE" Association="Self.FK_IDMARQUE">
+            <End Role="MARQUE" EntitySet="MARQUE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDPRODUIT" Association="Self.FK_IDPRODUIT">
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+            <End Role="LIGNE_COMMANDE" EntitySet="LIGNE_COMMANDE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_bind_variable" EntitySet="t_dbms_sql_bind_variable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_define_column" EntitySet="t_dbms_sql_define_column" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_recordset" EntitySet="t_dbms_sql_recordset" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="venteproModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CATEGORIE">
+          <Key>
+            <PropertyRef Name="IDCATEGORIE" />
+          </Key>
+          <Property Name="IDCATEGORIE" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="NOMCATEGORIE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUIT" Relationship="Self.FK_IDCATEGORIE" FromRole="CATEGORIE" ToRole="PRODUIT" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="IDCLIENT" />
+          </Key>
+          <Property Name="IDCLIENT" Type="Decimal" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="NOMCLIENT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRENOMCLIENT" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COURIEL" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MOTDEPASSE" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEPHONECLIENT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NOCIVIQUE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOAPP" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="NOMRUE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="VILLE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PROVINCE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PAYS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="COMMANDE" Relationship="Self.FK_COMMANDE" FromRole="CLIENT" ToRole="COMMANDE" />
+        </EntityType>
+        <EntityType Name="COMMANDE">
+          <Key>
+            <PropertyRef Name="NOCOMMANDE" />
+          </Key>
+          <Property Name="NOCOMMANDE" Type="Decimal" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="DATECOMMANDE" Type="DateTime" Precision="0" />
+          <Property Name="IDCLIENT" Type="Decimal" Precision="20" Scale="0" />
+          <NavigationProperty Name="CLIENT" Relationship="Self.FK_COMMANDE" FromRole="COMMANDE" ToRole="CLIENT" />
+          <NavigationProperty Name="FACTURE" Relationship="Self.FACTURE_NOCOMMANDE_FK" FromRole="COMMANDE" ToRole="FACTURE" />
+        </EntityType>
+        <EntityType Name="FACTURE">
+          <Key>
+            <PropertyRef Name="IDFACTURE" />
+            <PropertyRef Name="NOCOMMANDE" />
+          </Key>
+          <Property Name="IDFACTURE" Type="Decimal" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="NOCOMMANDE" Type="Decimal" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="PRIXHT" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="PRIXTTC" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="DATEFACTURATION" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="COMMANDE" Relationship="Self.FACTURE_NOCOMMANDE_FK" FromRole="FACTURE" ToRole="COMMANDE" />
+        </EntityType>
+        <EntityType Name="LIGNE_COMMANDE">
+          <Key>
+            <PropertyRef Name="NOCOMMANDE" />
+            <PropertyRef Name="IDPRODUIT" />
+          </Key>
+          <Property Name="NOCOMMANDE" Type="Decimal" Precision="30" Scale="0" Nullable="false" />
+          <Property Name="IDPRODUIT" Type="Decimal" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="QUANTITE" Type="Decimal" Precision="5" Scale="0" />
+          <NavigationProperty Name="PRODUIT" Relationship="Self.FK_IDPRODUIT" FromRole="LIGNE_COMMANDE" ToRole="PRODUIT" />
+        </EntityType>
+        <EntityType Name="MARQUE">
+          <Key>
+            <PropertyRef Name="IDMARQUE" />
+          </Key>
+          <Property Name="IDMARQUE" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="NOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PRODUIT" Relationship="Self.FK_IDMARQUE" FromRole="MARQUE" ToRole="PRODUIT" />
+        </EntityType>
+        <EntityType Name="PRODUIT">
+          <Key>
+            <PropertyRef Name="IDPRODUIT" />
+          </Key>
+          <Property Name="IDPRODUIT" Type="Decimal" Precision="20" Scale="0" Nullable="false" />
+          <Property Name="IDMARQUE" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="NOMPRODUIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION_FR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PRIX" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="FORMATPRO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTITEENSTOCK" Type="Decimal" Precision="6" Scale="0" />
+          <Property Name="IMAGE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IDCATEGORIE" Type="Decimal" Precision="3" Scale="0" />
+          <NavigationProperty Name="CATEGORIE" Relationship="Self.FK_IDCATEGORIE" FromRole="PRODUIT" ToRole="CATEGORIE" />
+          <NavigationProperty Name="LIGNE_COMMANDE" Relationship="Self.FK_IDPRODUIT" FromRole="PRODUIT" ToRole="LIGNE_COMMANDE" />
+          <NavigationProperty Name="MARQUE" Relationship="Self.FK_IDMARQUE" FromRole="PRODUIT" ToRole="MARQUE" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="db_error_list">
+          <Key>
+            <PropertyRef Name="error_code" />
+          </Key>
+          <Property Name="error_full_name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="error_code" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="error_message" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="db_LOB_output">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="ordinal" />
+          </Key>
+          <Property Name="spid" Type="Int32" Nullable="false" />
+          <Property Name="ordinal" Type="Int32" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="db_storage">
+          <Key>
+            <PropertyRef Name="spid" />
+            <PropertyRef Name="login_time" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="spid" Type="Int16" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="name" Type="String" MaxLength="323" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_bind_variable">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="C_name" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="C_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="Self.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" FromRole="t_dbms_sql_bind_variable" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_cursor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="spid" Type="Int32" Nullable="false" />
+          <Property Name="login_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="statement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="current_row" Type="Int32" />
+          <Property Name="last_row" Type="Int32" />
+          <NavigationProperty Name="t_dbms_sql_bind_variable" Relationship="Self.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_bind_variable" />
+          <NavigationProperty Name="t_dbms_sql_define_column" Relationship="Self.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_define_column" />
+          <NavigationProperty Name="t_dbms_sql_recordset" Relationship="Self.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" FromRole="t_dbms_sql_cursor" ToRole="t_dbms_sql_recordset" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_define_column">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="C_type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="Self.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" FromRole="t_dbms_sql_define_column" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <EntityType Name="t_dbms_sql_recordset">
+          <Key>
+            <PropertyRef Name="cursor_id" />
+            <PropertyRef Name="C_key" />
+            <PropertyRef Name="position" />
+          </Key>
+          <Property Name="cursor_id" Type="Int32" Nullable="false" />
+          <Property Name="C_key" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="Int32" Nullable="false" />
+          <Property Name="c_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nc_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="b_value" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="t_dbms_sql_cursor" Relationship="Self.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" FromRole="t_dbms_sql_recordset" ToRole="t_dbms_sql_cursor" />
+        </EntityType>
+        <Association Name="FK_IDCATEGORIE">
+          <End Role="CATEGORIE" Type="Self.CATEGORIE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIE">
+              <PropertyRef Name="IDCATEGORIE" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="IDCATEGORIE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="0..1" />
+          <End Role="COMMANDE" Type="Self.COMMANDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="IDCLIENT" />
+            </Principal>
+            <Dependent Role="COMMANDE">
+              <PropertyRef Name="IDCLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FACTURE_NOCOMMANDE_FK">
+          <End Role="COMMANDE" Type="Self.COMMANDE" Multiplicity="1" />
+          <End Role="FACTURE" Type="Self.FACTURE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMMANDE">
+              <PropertyRef Name="NOCOMMANDE" />
+            </Principal>
+            <Dependent Role="FACTURE">
+              <PropertyRef Name="NOCOMMANDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDPRODUIT">
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="1" />
+          <End Role="LIGNE_COMMANDE" Type="Self.LIGNE_COMMANDE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUIT">
+              <PropertyRef Name="IDPRODUIT" />
+            </Principal>
+            <Dependent Role="LIGNE_COMMANDE">
+              <PropertyRef Name="IDPRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDMARQUE">
+          <End Role="MARQUE" Type="Self.MARQUE" Multiplicity="0..1" />
+          <End Role="PRODUIT" Type="Self.PRODUIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARQUE">
+              <PropertyRef Name="IDMARQUE" />
+            </Principal>
+            <Dependent Role="PRODUIT">
+              <PropertyRef Name="IDMARQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_bind_variable" Type="Self.t_dbms_sql_bind_variable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_bind_variable">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_define_column" Type="Self.t_dbms_sql_define_column" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_define_column">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+          <End Role="t_dbms_sql_cursor" Type="Self.t_dbms_sql_cursor" Multiplicity="1" />
+          <End Role="t_dbms_sql_recordset" Type="Self.t_dbms_sql_recordset" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_dbms_sql_cursor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="t_dbms_sql_recordset">
+              <PropertyRef Name="cursor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="venteproEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CATEGORIE" EntityType="Self.CATEGORIE" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
+          <EntitySet Name="COMMANDE" EntityType="Self.COMMANDE" />
+          <EntitySet Name="FACTURE" EntityType="Self.FACTURE" />
+          <EntitySet Name="LIGNE_COMMANDE" EntityType="Self.LIGNE_COMMANDE" />
+          <EntitySet Name="MARQUE" EntityType="Self.MARQUE" />
+          <EntitySet Name="PRODUIT" EntityType="Self.PRODUIT" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="db_error_list" EntityType="Self.db_error_list" />
+          <EntitySet Name="db_LOB_output" EntityType="Self.db_LOB_output" />
+          <EntitySet Name="db_storage" EntityType="Self.db_storage" />
+          <EntitySet Name="t_dbms_sql_bind_variable" EntityType="Self.t_dbms_sql_bind_variable" />
+          <EntitySet Name="t_dbms_sql_cursor" EntityType="Self.t_dbms_sql_cursor" />
+          <EntitySet Name="t_dbms_sql_define_column" EntityType="Self.t_dbms_sql_define_column" />
+          <EntitySet Name="t_dbms_sql_recordset" EntityType="Self.t_dbms_sql_recordset" />
+          <AssociationSet Name="FK_IDCATEGORIE" Association="Self.FK_IDCATEGORIE">
+            <End Role="CATEGORIE" EntitySet="CATEGORIE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE" Association="Self.FK_COMMANDE">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="COMMANDE" EntitySet="COMMANDE" />
+          </AssociationSet>
+          <AssociationSet Name="FACTURE_NOCOMMANDE_FK" Association="Self.FACTURE_NOCOMMANDE_FK">
+            <End Role="COMMANDE" EntitySet="COMMANDE" />
+            <End Role="FACTURE" EntitySet="FACTURE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDPRODUIT" Association="Self.FK_IDPRODUIT">
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+            <End Role="LIGNE_COMMANDE" EntitySet="LIGNE_COMMANDE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDMARQUE" Association="Self.FK_IDMARQUE">
+            <End Role="MARQUE" EntitySet="MARQUE" />
+            <End Role="PRODUIT" EntitySet="PRODUIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_bind_variable" EntitySet="t_dbms_sql_bind_variable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_define_column_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_define_column_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_define_column" EntitySet="t_dbms_sql_define_column" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_dbms_sql_recordset_t_dbms_sql_cursor" Association="Self.FK_t_dbms_sql_recordset_t_dbms_sql_cursor">
+            <End Role="t_dbms_sql_cursor" EntitySet="t_dbms_sql_cursor" />
+            <End Role="t_dbms_sql_recordset" EntitySet="t_dbms_sql_recordset" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="venteproModelStoreContainer" CdmEntityContainer="venteproEntities">
+          <EntitySetMapping Name="CATEGORIE">
+            <EntityTypeMapping TypeName="venteproModel.CATEGORIE">
+              <MappingFragment StoreEntitySet="CATEGORIE">
+                <ScalarProperty Name="IDCATEGORIE" ColumnName="IDCATEGORIE" />
+                <ScalarProperty Name="NOMCATEGORIE" ColumnName="NOMCATEGORIE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENT">
+            <EntityTypeMapping TypeName="venteproModel.CLIENT">
+              <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="IDCLIENT" ColumnName="IDCLIENT" />
+                <ScalarProperty Name="NOMCLIENT" ColumnName="NOMCLIENT" />
+                <ScalarProperty Name="PRENOMCLIENT" ColumnName="PRENOMCLIENT" />
+                <ScalarProperty Name="COURIEL" ColumnName="COURIEL" />
+                <ScalarProperty Name="MOTDEPASSE" ColumnName="MOTDEPASSE" />
+                <ScalarProperty Name="TELEPHONECLIENT" ColumnName="TELEPHONECLIENT" />
+                <ScalarProperty Name="NOCIVIQUE" ColumnName="NOCIVIQUE" />
+                <ScalarProperty Name="NOAPP" ColumnName="NOAPP" />
+                <ScalarProperty Name="NOMRUE" ColumnName="NOMRUE" />
+                <ScalarProperty Name="VILLE" ColumnName="VILLE" />
+                <ScalarProperty Name="PROVINCE" ColumnName="PROVINCE" />
+                <ScalarProperty Name="PAYS" ColumnName="PAYS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMMANDE">
+            <EntityTypeMapping TypeName="venteproModel.COMMANDE">
+              <MappingFragment StoreEntitySet="COMMANDE">
+                <ScalarProperty Name="NOCOMMANDE" ColumnName="NOCOMMANDE" />
+                <ScalarProperty Name="DATECOMMANDE" ColumnName="DATECOMMANDE" />
+                <ScalarProperty Name="IDCLIENT" ColumnName="IDCLIENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURE">
+            <EntityTypeMapping TypeName="venteproModel.FACTURE">
+              <MappingFragment StoreEntitySet="FACTURE">
+                <ScalarProperty Name="IDFACTURE" ColumnName="IDFACTURE" />
+                <ScalarProperty Name="NOCOMMANDE" ColumnName="NOCOMMANDE" />
+                <ScalarProperty Name="PRIXHT" ColumnName="PRIXHT" />
+                <ScalarProperty Name="PRIXTTC" ColumnName="PRIXTTC" />
+                <ScalarProperty Name="DATEFACTURATION" ColumnName="DATEFACTURATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LIGNE_COMMANDE">
+            <EntityTypeMapping TypeName="venteproModel.LIGNE_COMMANDE">
+              <MappingFragment StoreEntitySet="LIGNE_COMMANDE">
+                <ScalarProperty Name="NOCOMMANDE" ColumnName="NOCOMMANDE" />
+                <ScalarProperty Name="IDPRODUIT" ColumnName="IDPRODUIT" />
+                <ScalarProperty Name="QUANTITE" ColumnName="QUANTITE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MARQUE">
+            <EntityTypeMapping TypeName="venteproModel.MARQUE">
+              <MappingFragment StoreEntitySet="MARQUE">
+                <ScalarProperty Name="IDMARQUE" ColumnName="IDMARQUE" />
+                <ScalarProperty Name="NOM" ColumnName="NOM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUIT">
+            <EntityTypeMapping TypeName="venteproModel.PRODUIT">
+              <MappingFragment StoreEntitySet="PRODUIT">
+                <ScalarProperty Name="IDPRODUIT" ColumnName="IDPRODUIT" />
+                <ScalarProperty Name="IDMARQUE" ColumnName="IDMARQUE" />
+                <ScalarProperty Name="NOMPRODUIT" ColumnName="NOMPRODUIT" />
+                <ScalarProperty Name="DESCRIPTION_FR" ColumnName="DESCRIPTION_FR" />
+                <ScalarProperty Name="PRIX" ColumnName="PRIX" />
+                <ScalarProperty Name="FORMATPRO" ColumnName="FORMATPRO" />
+                <ScalarProperty Name="QUANTITEENSTOCK" ColumnName="QUANTITEENSTOCK" />
+                <ScalarProperty Name="IMAGE" ColumnName="IMAGE" />
+                <ScalarProperty Name="IDCATEGORIE" ColumnName="IDCATEGORIE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="venteproModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_error_list">
+            <EntityTypeMapping TypeName="venteproModel.db_error_list">
+              <MappingFragment StoreEntitySet="db_error_list">
+                <ScalarProperty Name="error_full_name" ColumnName="error_full_name" />
+                <ScalarProperty Name="error_code" ColumnName="error_code" />
+                <ScalarProperty Name="error_message" ColumnName="error_message" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_LOB_output">
+            <EntityTypeMapping TypeName="venteproModel.db_LOB_output">
+              <MappingFragment StoreEntitySet="db_LOB_output">
+                <ScalarProperty Name="spid" ColumnName="spid" />
+                <ScalarProperty Name="ordinal" ColumnName="ordinal" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_storage">
+            <EntityTypeMapping TypeName="venteproModel.db_storage">
+              <MappingFragment StoreEntitySet="db_storage">
+                <ScalarProperty Name="spid" ColumnName="spid" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_bind_variable">
+            <EntityTypeMapping TypeName="venteproModel.t_dbms_sql_bind_variable">
+              <MappingFragment StoreEntitySet="t_dbms_sql_bind_variable">
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+                <ScalarProperty Name="C_name" ColumnName="_name" />
+                <ScalarProperty Name="C_type" ColumnName="_type" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_cursor">
+            <EntityTypeMapping TypeName="venteproModel.t_dbms_sql_cursor">
+              <MappingFragment StoreEntitySet="t_dbms_sql_cursor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="spid" ColumnName="spid" />
+                <ScalarProperty Name="login_time" ColumnName="login_time" />
+                <ScalarProperty Name="statement" ColumnName="statement" />
+                <ScalarProperty Name="current_row" ColumnName="current_row" />
+                <ScalarProperty Name="last_row" ColumnName="last_row" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_define_column">
+            <EntityTypeMapping TypeName="venteproModel.t_dbms_sql_define_column">
+              <MappingFragment StoreEntitySet="t_dbms_sql_define_column">
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="C_type" ColumnName="_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_dbms_sql_recordset">
+            <EntityTypeMapping TypeName="venteproModel.t_dbms_sql_recordset">
+              <MappingFragment StoreEntitySet="t_dbms_sql_recordset">
+                <ScalarProperty Name="cursor_id" ColumnName="cursor_id" />
+                <ScalarProperty Name="C_key" ColumnName="_key" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="c_value" ColumnName="c_value" />
+                <ScalarProperty Name="nc_value" ColumnName="nc_value" />
+                <ScalarProperty Name="b_value" ColumnName="b_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

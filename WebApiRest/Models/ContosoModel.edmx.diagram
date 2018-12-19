@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da24b335cc9d4cc8aee473de2959d4e2" Name="Diagram1">
+        <EntityTypeShape EntityType="venteproModel.CATEGORIE" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.CLIENT" Width="1.5" PointX="7.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.COMMANDE" Width="1.5" PointX="10" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.FACTURE" Width="1.5" PointX="12.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.LIGNE_COMMANDE" Width="1.5" PointX="10.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.MARQUE" Width="1.5" PointX="5.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.PRODUIT" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.db_error_list" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.db_LOB_output" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.db_storage" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.t_dbms_sql_bind_variable" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.t_dbms_sql_cursor" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.t_dbms_sql_define_column" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="venteproModel.t_dbms_sql_recordset" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="venteproModel.FK_IDCATEGORIE" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_COMMANDE" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FACTURE_NOCOMMANDE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_IDPRODUIT" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_IDMARQUE" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_t_dbms_sql_bind_variable_t_dbms_sql_cursor" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_t_dbms_sql_define_column_t_dbms_sql_cursor" ManuallyRouted="false" />
+        <AssociationConnector Association="venteproModel.FK_t_dbms_sql_recordset_t_dbms_sql_cursor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
